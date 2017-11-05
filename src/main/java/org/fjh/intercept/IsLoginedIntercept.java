@@ -41,7 +41,7 @@ public class IsLoginedIntercept implements HandlerInterceptor {
 				return true;// 返回true才能将请求分发到下一个资源
 			else {
 				//跳转到登录页
-				arg0.getRequestDispatcher("login.jsp").forward(arg0, arg1);
+				arg0.getRequestDispatcher("/index.do").forward(arg0, arg1);
 				return false;
 			}
 		}

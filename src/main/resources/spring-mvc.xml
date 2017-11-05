@@ -11,7 +11,9 @@
       http://www.springframework.org/schema/mvc  
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">   
   
+  <!-- 使用Annotation自动注册Bean，解决事务失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->  
     <context:component-scan base-package="org.fjh.*"/>
+
   
      <!-- 开启注解 -->
     <mvc:annotation-driven/>
@@ -24,7 +26,6 @@
      <mvc:resources location="/bt/" mapping="/bt/**"/>     
      <mvc:resources location="/tab/" mapping="/bt/**"/>     
      
-       
   	<!-- JSP视图解析器 
   	<bean id="JspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
   		<property name="prefix" value="/WEB-INF/ftl/"/>
@@ -72,7 +73,7 @@
 	</bean>
 	
 	
-	    <!-- 自定义拦截器 -->
+	<!-- 自定义拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- 拦截所有的资源 -->
