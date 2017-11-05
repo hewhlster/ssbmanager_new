@@ -27,7 +27,7 @@
        
   	<!-- JSP视图解析器 
   	<bean id="JspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  		<property name="prefix" value="/WEB-INF/page/"/>
+  		<property name="prefix" value="/WEB-INF/ftl/"/>
   		<property name="suffix" value=".jsp"/>
   		<property name="order" value="1"></property>
   	</bean>
@@ -40,6 +40,7 @@
   		<property name="contentType" value="text/html;charset=utf-8"/>
   		<!-- 指优先采用freemaker解析器 -->
   		<property name="order" value="0"></property>
+  		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
   	</bean>
   	
   	<!-- freemaker模板配置 -->
@@ -48,8 +49,35 @@
   		<property name="defaultEncoding" value="utf-8"/>
   		<property name="freemarkerSettings">
   			<props>
-  				<prop key="template_update_delay">3600</prop>
+  				<prop key="template_update_delay">10</prop>
+  				<prop key="locale">zh_CN</prop>  
+		        <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>  
+		        <prop key="date_format">yyyy-MM-dd</prop>  
+		        <prop key="number_format">#.##</prop>  
+		        <prop key="classic_compatible">true</prop>  
   			</props>
   		</property>
   	</bean>
+  	
+  	
+  	     <!-- 配置文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 设定上传文件的最大字节数 -->
+		<property name="maxUploadSize" value="2097152" />
+		<!-- 设定延时解析，提供捕捉异常时机 -->
+		<property name="resolveLazily" value="true" />
+	</bean>
+	
+	
+	    <!-- 自定义拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截所有的资源 -->
+			<mvc:mapping path="/**"/>
+			<bean id="isLoginedIntercept" class="org.fjh.intercept.IsLoginedIntercept"/>
+		</mvc:interceptor>
+	</mvc:interceptors>  
 </beans>
